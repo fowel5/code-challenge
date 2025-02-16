@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { PageWrapper } from "~/components/PageWrapper.styled";
+import { PageWrapper } from "~/components/PageWrapper/PageWrapper.styled";
 import { SearchBar } from "~/components/SearchBar/SearchBar";
 import createApolloClient from "~/lib/apolloClient";
 
