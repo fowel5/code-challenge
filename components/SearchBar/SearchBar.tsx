@@ -1,0 +1,23 @@
+"use client";
+import { useState } from "react";
+import * as S from "./SearchBar.styled";
+import { redirect } from "next/dist/server/api-utils";
+import { useRouter } from "next/navigation";
+
+export function SearchBar() {
+  const [slug, setSlug] = useState("");
+  const { push } = useRouter();
+
+  return (
+    <S.SearchBarContainer>
+      <S.SearchInput
+        value={slug}
+        onChange={(newSlug) => setSlug(newSlug.target.value)}
+        placeholder="Buscar..."
+      ></S.SearchInput>
+      <S.SearchButton onClick={() => push(`/${slug}`)}>Buscar</S.SearchButton>
+    </S.SearchBarContainer>
+  );
+}
+
+export default SearchBar;
