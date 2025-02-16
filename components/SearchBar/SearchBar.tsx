@@ -15,7 +15,9 @@ export function SearchBar() {
         onChange={(newSlug) => setSlug(newSlug.target.value)}
         placeholder="Buscar..."
       ></S.SearchInput>
-      <S.SearchButton onClick={() => push(`/${slug}`)}>Buscar</S.SearchButton>
+      <S.SearchButton onClick={() => push(`/search/${slug}`)}>
+        Buscar
+      </S.SearchButton>
     </S.SearchBarContainer>
   );
 }
