@@ -1,17 +1,36 @@
-import Image from "next/image";
-import { TextHeader } from "~/components/TextHeader.styled";
+import { gql } from "@apollo/client";
+import { PageWrapper } from "~/components/PageWrapper.styled";
+import { SearchBar } from "~/components/SearchBar/SearchBar";
+import createApolloClient from "~/lib/apolloClient";
 
-export default function Home() {
+const queryExample = gql`
+  query {
+    search(type: REPOSITORY, query: "name:*react*", last: 100) {
+      repos: edges {
+        repo: node {
+          ... on Repository {
+            url
+
+            allIssues: issues {
+              totalCount
+            }
+            openIssues: issues(states: OPEN) {
+              totalCount
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export default async function Page() {
+  // const apolloClient = createApolloClient();
+  // const { data } = await apolloClient.query({ query: queryExample });
+
   return (
-    <>
-      <TextHeader>TEST HEADER</TextHeader>
-      <Image
-        src="/next.svg"
-        alt="Next.js logo"
-        width={180}
-        height={38}
-        priority
-      />
-    </>
+    <PageWrapper>
+      <SearchBar />
+    </PageWrapper>
   );
 }
