@@ -1,13 +1,24 @@
 "use client";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const PageWrapper = styled.div`
-  height: 100vh;
+const getCommonPageWrapperCSS = () => css`
   width: 100vw;
   max-width: 100%;
+  background-color: rgba(13, 17, 23, 0.5);
+`;
+
+export const PageWrapper = styled.div`
+  ${getCommonPageWrapperCSS}
+  height: 100vh;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(13, 17, 23, 0.5);
+`;
+
+export const SearchPageWrapper = styled.div`
+  ${getCommonPageWrapperCSS}
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
 `;
