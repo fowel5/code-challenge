@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import * as S from "./SearchBar.styled";
-import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/navigation";
 
 export function SearchBar() {
