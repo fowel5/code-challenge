@@ -2,31 +2,20 @@ import { gql } from "@apollo/client";
 
 export function createRepositorySearchQuery({
   slugToSearch,
-  endCursor,
 }: {
   slugToSearch: string;
-  endCursor: string;
 }) {
   return gql`
     query {
-      search(query: "${slugToSearch} in:name", type: REPOSITORY, first: 10, after: "${endCursor}") {
-        pageInfo {
-            endCursor
-            hasNextPage
-        }
+      search(query: "${slugToSearch} in:name", type: REPOSITORY, first: 10) {
         edges {
           node {
             ... on Repository {
               name
-              url
               description
-              stargazerCount
-              forkCount
               owner {
                 login
               }
-              createdAt
-              updatedAt
             }
           }
         }
