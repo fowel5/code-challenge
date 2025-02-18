@@ -4,7 +4,7 @@ import { SearchBar } from "~/components/SearchBar/SearchBar";
 export default async function Page() {
   return (
     <PageWrapper>
-      <SearchBar />
+      <SearchBar path="search" placeholderText="Buscar..." />
     </PageWrapper>
   );
 }

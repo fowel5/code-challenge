@@ -3,7 +3,12 @@ import { useState } from "react";
 import * as S from "./SearchBar.styled";
 import { useRouter } from "next/navigation";
 
-export function SearchBar() {
+type SearchBarProps = {
+  path: string;
+  placeholderText: string;
+};
+
+export function SearchBar({ path, placeholderText }: SearchBarProps) {
   const [slug, setSlug] = useState("");
   const { push } = useRouter();
 
@@ -12,9 +17,9 @@ export function SearchBar() {
       <S.SearchInput
         value={slug}
         onChange={(newSlug) => setSlug(newSlug.target.value)}
-        placeholder="Buscar..."
+        placeholder={placeholderText}
       ></S.SearchInput>
-      <S.SearchButton onClick={() => push(`/search/${slug}`)}>
+      <S.SearchButton onClick={() => push(`/${path}/${slug}`)}>
         Buscar
       </S.SearchButton>
     </S.SearchBarContainer>
