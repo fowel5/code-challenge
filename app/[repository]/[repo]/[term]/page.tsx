@@ -4,17 +4,11 @@ import SearchBar from "~/components/SearchBar/SearchBar";
 export default async function Page({
   params,
 }: {
-  params: Promise<{ repo: string }>;
+  params: Promise<{ repo: string; term: string }>;
 }) {
   const resolvedSearchParams = await params;
   const repo = decodeURIComponent(resolvedSearchParams.repo);
+  const term = resolvedSearchParams.term;
 
-  return (
-    <PageWrapper>
-      <SearchBar
-        path={`repository/${resolvedSearchParams.repo}`}
-        placeholderText={`Buscar en ${repo}`}
-      />
-    </PageWrapper>
-  );
+  return <PageWrapper>{repo.concat(term)}</PageWrapper>;
 }
