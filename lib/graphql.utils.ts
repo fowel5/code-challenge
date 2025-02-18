@@ -26,42 +26,45 @@ export function createRepositorySearchQuery({
 
 export function createIssuesSearchQueryOnRepo({
   repoToSearch,
-  owner,
+  wordToSearch,
   endCursor,
 }: {
-  owner: string;
   repoToSearch: string;
+  wordToSearch: string;
   endCursor: string;
 }) {
   return gql`
     query {
-      repository(owner: "${owner}", name: "${repoToSearch}") {
-        issues(
-          first: 20
-          after: "${endCursor}"
-          orderBy: { field: CREATED_AT, direction: DESC }
-        ) {
-          pageInfo {
-            endCursor
-            hasNextPage
-          }
-          edges {
-            node {
+      search(
+        query: "repo:${repoToSearch} is:issue sort:updated-desc ${wordToSearch} in:title,body"
+        type: ISSUE
+        first: 10
+        after: "${endCursor}"
+      ) {
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+        edges {
+          node {
+            ... on Issue {
               title
               url
-              number
+              state
               createdAt
               updatedAt
-              author {
-                login
-              }
-              labels(first: 5) {
-                nodes {
-                  name
+              comments(
+                orderBy: { field: UPDATED_AT, direction: DESC }
+                first: 10
+              ) {
+                edges {
+                  node {
+                    bodyHTML
+                  }
                 }
               }
-              comments {
-                totalCount
+              author {
+                login
               }
             }
           }
