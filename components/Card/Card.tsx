@@ -17,7 +17,9 @@ export function Card({ name, description, owner }: CardProps) {
       <S.TextField>{description}</S.TextField>
       <S.TextField>By {owner}</S.TextField>
       <S.CardButton
-        onClick={() => push(`/repository?name=${name}&owner=${owner}`)}
+        onClick={() =>
+          push(`/repository/${encodeURIComponent(`${owner}/${name}`)}`)
+        }
       >
         Go To Issues
       </S.CardButton>
