@@ -22,3 +22,7 @@ export const SearchPageWrapper = styled.div`
   flex-wrap: wrap;
   gap: 50px;
 `;
+
+export const IssuePageWrapper = styled.div`
+  ${getCommonPageWrapperCSS}
+`;

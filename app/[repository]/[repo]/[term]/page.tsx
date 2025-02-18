@@ -1,5 +1,6 @@
-import { PageWrapper } from "~/components/PageWrapper/PageWrapper.styled";
-import SearchBar from "~/components/SearchBar/SearchBar";
+import { IssuePageWrapper } from "~/components/PageWrapper/PageWrapper.styled";
+import { fetchIssuesOfRepository } from "~/helpers/fetchRepositories";
+import { createIssuesSearchQueryOnRepo } from "~/lib/graphql.utils";
 
 export default async function Page({
   params,
@@ -10,5 +11,13 @@ export default async function Page({
   const repo = decodeURIComponent(resolvedSearchParams.repo);
   const term = resolvedSearchParams.term;
 
-  return <PageWrapper>{repo.concat(term)}</PageWrapper>;
+  const query = createIssuesSearchQueryOnRepo({
+    repoToSearch: repo,
+    wordToSearch: term,
+    endCursor: "",
+  });
+
+  const fetchedIssuesWithPageInfo = await fetchIssuesOfRepository(query);
+
+  return <IssuePageWrapper></IssuePageWrapper>;
 }
