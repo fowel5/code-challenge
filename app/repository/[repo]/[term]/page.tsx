@@ -12,7 +12,7 @@ export default async function Page({
   searchParams,
 }: {
   params: Promise<{ repo: string; term: string }>;
-  searchParams: { [key: string]: number | undefined };
+  searchParams: Promise<{ [key: string]: number | undefined }>;
 }) {
   const resolvedParams = await params;
   const repo = decodeURIComponent(resolvedParams.repo);
