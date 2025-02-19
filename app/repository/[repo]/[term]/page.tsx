@@ -1,6 +1,7 @@
 import { isDocumentNode } from "@apollo/client/utilities";
 import { Issue } from "~/components/Issue/Issue";
 import { IssuePageWrapper } from "~/components/PageWrapper/PageWrapper.styled";
+import { PaginationBlock } from "~/components/PaginationBlock/PaginationBlock";
 import {
   fetchIssuesOfRepository,
   fetchPageInfoOfIssuesOfRepository,
@@ -22,10 +23,11 @@ export default async function Page({
   const term = resolvedParams.term;
 
   const resolvedSearchParams = await searchParams;
-  const page = resolvedSearchParams?.page || 1;
+  // somehow page could not infer the number type without the Number()
+  const page = Number(resolvedSearchParams?.page || 1);
 
   const cursorQuery =
-    page == 1
+    page === 1
       ? ""
       : createPageInfoQueryToSearchIssues({
           repoToSearch: repo,
@@ -40,7 +42,7 @@ export default async function Page({
         hasNextPage: true,
         hasPreviousPage: false,
       };
-
+  console.log(pageInfo);
   const query = createIssuesSearchQueryOnRepo({
     repoToSearch: repo,
     wordToSearch: term,
@@ -54,6 +56,7 @@ export default async function Page({
       {fetchedIssues.map((issue, index) => (
         <Issue issue={issue} key={index} />
       ))}
+      <PaginationBlock pageNumber={page} pageInfo={pageInfo} />
     </IssuePageWrapper>
   );
 }

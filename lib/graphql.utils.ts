@@ -86,7 +86,6 @@ export function createPageInfoQueryToSearchIssues({
         pageInfo {
           endCursor
           hasNextPage
-          hasPreviousPage
         }
       }
     }

@@ -44,7 +44,6 @@ export async function fetchPageInfoOfIssuesOfRepository(
     return {
       endCursor: null,
       hasNextPage: false,
-      hasPreviousPage: false,
     };
   }
 }
