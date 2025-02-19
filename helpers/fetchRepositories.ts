@@ -16,18 +16,35 @@ export async function fetchRepositories(searchQuery: DocumentNode) {
 
 export async function fetchIssuesOfRepository(
   searchQuery: DocumentNode
-): Promise<{ pageInfo: PageInfo; issues: Issue[] }> {
+): Promise<Issue[]> {
   try {
     const apolloClient = createApolloClient();
     const { data } = await apolloClient.query<IssueSearchResult>({
       query: searchQuery,
     });
 
-    return {
-      pageInfo: data.search.pageInfo,
-      issues: data.search.edges.map((edge) => edge.node),
-    };
+    return data.search.edges.map((edge) => edge.node);
   } catch (error) {
-    return { pageInfo: { endCursor: null, hasNextPage: false }, issues: [] };
+    return [];
+  }
+}
+
+export async function fetchPageInfoOfIssuesOfRepository(
+  searchQuery: DocumentNode
+): Promise<PageInfo> {
+  try {
+    const apolloClient = createApolloClient();
+    const { data } = await apolloClient.query<PageInfoSearchResult>({
+      query: searchQuery,
+    });
+
+    return data.search.pageInfo;
+  } catch (error) {
+    console.log(error);
+    return {
+      endCursor: null,
+      hasNextPage: false,
+      hasPreviousPage: false,
+    };
   }
 }

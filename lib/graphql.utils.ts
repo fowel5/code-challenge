@@ -41,10 +41,6 @@ export function createIssuesSearchQueryOnRepo({
         first: 10
         after: "${endCursor}"
       ) {
-        pageInfo {
-          endCursor
-          hasNextPage
-        }
         edges {
           node {
             ... on Issue {
@@ -68,6 +64,29 @@ export function createIssuesSearchQueryOnRepo({
               }
             }
           }
+        }
+      }
+    }
+  `;
+}
+
+export function createPageInfoQueryToSearchIssues({
+  repoToSearch,
+  wordToSearch,
+  size,
+}: {
+  repoToSearch: string;
+  wordToSearch: string;
+  size: number;
+}) {
+  console.log(size);
+  return gql`
+    query {
+      search(query: "repo:${repoToSearch} is:issue sort:updated-desc ${wordToSearch} in:title,body" type: ISSUE first: ${size}) {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
         }
       }
     }

@@ -1,4 +1,5 @@
 type PageInfo = {
-  hasNextPage: boolean;
   endCursor: string | null;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
 };

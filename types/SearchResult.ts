@@ -10,11 +10,16 @@ type RepoSearchResult = {
 
 type IssueSearchResult = {
   search: {
-    pageInfo: PageInfo;
     edges: [
       {
         node: Issue;
       }
     ];
+  };
+};
+
+type PageInfoSearchResult = {
+  search: {
+    pageInfo: PageInfo;
   };
 };

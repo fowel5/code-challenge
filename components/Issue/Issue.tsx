@@ -30,9 +30,10 @@ export function Issue({ issue }: IssueProps) {
           <S.IssueText>💬 {issue.comments.edges.length} comments</S.IssueText>
         </S.IssueCommentsCounter>
       </S.IssueContent>
-      <S.CommentsDropdown isDropdownShown={isDropdownShown}>
-        {issue.comments.edges.map((edge) => (
+      <S.CommentsDropdown isdropdownshown={String(isDropdownShown)}>
+        {issue.comments.edges.map((edge, index) => (
           <S.CommentTextWrapper
+            key={index}
             dangerouslySetInnerHTML={{ __html: edge.node.bodyHTML }}
           />
         ))}

@@ -51,8 +51,9 @@ export const IssueCommentsCounter = styled.div`
   color: #6a737d;
 `;
 
-export const CommentsDropdown = styled.div<{ isDropdownShown: boolean }>`
-  display: ${({ isDropdownShown }) => (isDropdownShown ? "block" : "none")};
+export const CommentsDropdown = styled.div<{ isdropdownshown: string }>`
+  display: ${({ isdropdownshown }) =>
+    isdropdownshown === "true" ? "block" : "none"};
   margin-top: 10px;
   padding: 10px;
   border-top: 1px solid #e1e4e8;
