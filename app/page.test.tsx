@@ -9,8 +9,9 @@ jest.mock("next/navigation", () => {
     })),
   };
 });
-
-it("renders a searchbar", async () => {
-  render(await Page());
-  expect(screen.getByTestId("searchbar")).toBeInTheDocument();
+describe("The starting page", () => {
+  it("renders a searchbar", async () => {
+    render(await Page());
+    expect(screen.getByTestId("searchbar")).toBeInTheDocument();
+  });
 });
