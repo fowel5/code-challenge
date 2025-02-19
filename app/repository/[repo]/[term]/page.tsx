@@ -42,7 +42,7 @@ export default async function Page({
         hasNextPage: true,
         hasPreviousPage: false,
       };
-  console.log(pageInfo);
+
   const query = createIssuesSearchQueryOnRepo({
     repoToSearch: repo,
     wordToSearch: term,

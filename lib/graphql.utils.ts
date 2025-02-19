@@ -79,7 +79,6 @@ export function createPageInfoQueryToSearchIssues({
   wordToSearch: string;
   size: number;
 }) {
-  console.log(size);
   return gql`
     query {
       search(query: "repo:${repoToSearch} is:issue sort:updated-desc ${wordToSearch} in:title,body" type: ISSUE first: ${size}) {

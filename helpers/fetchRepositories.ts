@@ -40,7 +40,6 @@ export async function fetchPageInfoOfIssuesOfRepository(
 
     return data.search.pageInfo;
   } catch (error) {
-    console.log(error);
     return {
       endCursor: null,
       hasNextPage: false,

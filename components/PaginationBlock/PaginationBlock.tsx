@@ -8,7 +8,6 @@ export function PaginationBlock({
   pageInfo,
   pageNumber,
 }: PaginationBlockProps) {
-  console.log(pageNumber.valueOf() + 1);
   const nextPageHref = `?page=${pageNumber + 1}`;
   const previousPageHref = `?page=${pageNumber - 1}`;
 
