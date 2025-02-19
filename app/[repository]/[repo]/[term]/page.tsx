@@ -1,3 +1,4 @@
+import { Issue } from "~/components/Issue/Issue";
 import { IssuePageWrapper } from "~/components/PageWrapper/PageWrapper.styled";
 import { fetchIssuesOfRepository } from "~/helpers/fetchRepositories";
 import { createIssuesSearchQueryOnRepo } from "~/lib/graphql.utils";
@@ -19,5 +20,11 @@ export default async function Page({
 
   const fetchedIssuesWithPageInfo = await fetchIssuesOfRepository(query);
 
-  return <IssuePageWrapper></IssuePageWrapper>;
+  return (
+    <IssuePageWrapper>
+      {fetchedIssuesWithPageInfo.issues.map((issue, index) => (
+        <Issue issue={issue} key={index} />
+      ))}
+    </IssuePageWrapper>
+  );
 }
