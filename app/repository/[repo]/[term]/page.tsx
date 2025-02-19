@@ -1,4 +1,3 @@
-import { isDocumentNode } from "@apollo/client/utilities";
 import { Issue } from "~/components/Issue/Issue";
 import { IssuePageWrapper } from "~/components/PageWrapper/PageWrapper.styled";
 import { PaginationBlock } from "~/components/PaginationBlock/PaginationBlock";
@@ -34,7 +33,6 @@ export default async function Page({
           size: (page - 1) * 10,
         });
 
-  console.log(pageInfoAdvancedCursor);
   const query = createIssuesSearchQueryOnRepo({
     repoToSearch: repo,
     wordToSearch: term,
