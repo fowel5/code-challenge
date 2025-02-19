@@ -74,14 +74,16 @@ export function createPageInfoQueryToSearchIssues({
   repoToSearch,
   wordToSearch,
   size,
+  cursor,
 }: {
   repoToSearch: string;
   wordToSearch: string;
   size: number;
+  cursor: string;
 }) {
   return gql`
     query {
-      search(query: "repo:${repoToSearch} is:issue sort:updated-desc ${wordToSearch} in:title,body" type: ISSUE first: ${size}) {
+      search(query: "repo:${repoToSearch} is:issue sort:updated-desc ${wordToSearch} in:title,body" type: ISSUE first: ${size} after:"${cursor}") {
         pageInfo {
           endCursor
           hasNextPage

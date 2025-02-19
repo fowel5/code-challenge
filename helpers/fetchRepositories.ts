@@ -1,5 +1,6 @@
 import { DocumentNode } from "graphql";
 import createApolloClient from "~/lib/apolloClient";
+import { createPageInfoQueryToSearchIssues } from "~/lib/graphql.utils";
 
 export async function fetchRepositories(searchQuery: DocumentNode) {
   try {
@@ -45,4 +46,39 @@ export async function fetchPageInfoOfIssuesOfRepository(
       hasNextPage: false,
     };
   }
+}
+
+export async function fetchPageInfoAdvanced({
+  repoToSearch,
+  wordToSearch,
+  size,
+}: {
+  repoToSearch: string;
+  wordToSearch: string;
+  size: number;
+}) {
+  let counter = 0;
+  let cursorReference = "";
+
+  while (size > 100) {
+    counter += 100;
+    const query = createPageInfoQueryToSearchIssues({
+      repoToSearch,
+      wordToSearch,
+      size: counter,
+      cursor: cursorReference,
+    });
+    const innerPageInfo = await fetchPageInfoOfIssuesOfRepository(query);
+    cursorReference = innerPageInfo.endCursor || "";
+    size -= 100;
+  }
+
+  const lastQuery = createPageInfoQueryToSearchIssues({
+    repoToSearch,
+    wordToSearch,
+    size,
+    cursor: cursorReference,
+  });
+
+  return await fetchPageInfoOfIssuesOfRepository(lastQuery);
 }

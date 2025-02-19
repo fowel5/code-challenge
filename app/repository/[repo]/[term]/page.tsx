@@ -4,12 +4,9 @@ import { IssuePageWrapper } from "~/components/PageWrapper/PageWrapper.styled";
 import { PaginationBlock } from "~/components/PaginationBlock/PaginationBlock";
 import {
   fetchIssuesOfRepository,
-  fetchPageInfoOfIssuesOfRepository,
+  fetchPageInfoAdvanced,
 } from "~/helpers/fetchRepositories";
-import {
-  createIssuesSearchQueryOnRepo,
-  createPageInfoQueryToSearchIssues,
-} from "~/lib/graphql.utils";
+import { createIssuesSearchQueryOnRepo } from "~/lib/graphql.utils";
 
 export default async function Page({
   params,
@@ -26,27 +23,22 @@ export default async function Page({
   // somehow page could not infer the number type without the Number()
   const page = Number(resolvedSearchParams?.page || 1);
 
-  const cursorQuery =
+  // The max records on the search function is 100, so we have to iterate, fetching the last cursor
+  // in 100er-chunks, in order to be able to visit over page n°11.
+  const pageInfoAdvancedCursor =
     page === 1
-      ? ""
-      : createPageInfoQueryToSearchIssues({
+      ? { endCursor: null, hasNextPage: true }
+      : await fetchPageInfoAdvanced({
           repoToSearch: repo,
           wordToSearch: term,
           size: (page - 1) * 10,
         });
 
-  const pageInfo = isDocumentNode(cursorQuery)
-    ? await fetchPageInfoOfIssuesOfRepository(cursorQuery)
-    : {
-        endCursor: "",
-        hasNextPage: true,
-        hasPreviousPage: false,
-      };
-
+  console.log(pageInfoAdvancedCursor);
   const query = createIssuesSearchQueryOnRepo({
     repoToSearch: repo,
     wordToSearch: term,
-    endCursor: pageInfo.endCursor || "",
+    endCursor: pageInfoAdvancedCursor.endCursor || "",
   });
 
   const fetchedIssues = await fetchIssuesOfRepository(query);
@@ -56,7 +48,7 @@ export default async function Page({
       {fetchedIssues.map((issue, index) => (
         <Issue issue={issue} key={index} />
       ))}
-      <PaginationBlock pageNumber={page} pageInfo={pageInfo} />
+      <PaginationBlock pageNumber={page} pageInfo={pageInfoAdvancedCursor} />
     </IssuePageWrapper>
   );
 }
