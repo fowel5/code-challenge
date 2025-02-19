@@ -13,7 +13,7 @@ export function SearchBar({ path, placeholderText }: SearchBarProps) {
   const { push } = useRouter();
 
   return (
-    <S.SearchBarContainer>
+    <S.SearchBarContainer data-testid="searchbar">
       <S.SearchInput
         value={slug}
         onChange={(newSlug) => setSlug(newSlug.target.value)}
