@@ -50,7 +50,7 @@ export function createIssuesSearchQueryOnRepo({
               createdAt
               updatedAt
               comments(
-                orderBy: { field: UPDATED_AT, direction: DESC }
+                orderBy: { field: UPDATED_AT, direction: ASC }
                 first: 10
               ) {
                 edges {
