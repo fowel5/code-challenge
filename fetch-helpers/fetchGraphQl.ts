@@ -1,6 +1,6 @@
 import { DocumentNode } from "graphql";
 import createApolloClient from "~/lib/apolloClient";
-import { createPageInfoQueryToSearchIssues } from "~/lib/graphql.utils";
+import { createPageInfoQueryToSearchIssues } from "~/utils/graphql.utils";
 
 export async function fetchRepositories(searchQuery: DocumentNode) {
   try {

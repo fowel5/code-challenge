@@ -4,8 +4,8 @@ import { PaginationBlock } from "~/components/PaginationBlock/PaginationBlock";
 import {
   fetchIssuesOfRepository,
   fetchPageInfoAdvanced,
-} from "~/helpers/fetchRepositories";
-import { createIssuesSearchQueryOnRepo } from "~/lib/graphql.utils";
+} from "~/fetch-helpers/fetchGraphQl";
+import { createIssuesSearchQueryOnRepo } from "~/utils/graphql.utils";
 
 export default async function Page({
   params,

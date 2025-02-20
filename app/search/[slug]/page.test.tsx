@@ -1,13 +1,12 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import Page from "./page";
-import { redirect } from "next/navigation";
-import { fetchRepositories } from "~/helpers/fetchRepositories";
+import { fetchRepositories } from "~/fetch-helpers/fetchGraphQl";
 import { mockQuery, mockRepo } from "~/test-utils/query.mock";
-import { redirectToMainPage } from "~/lib/pageHelpers";
+import { redirectToMainPage } from "~/utils/page.utils";
 
-jest.mock("~/lib/pageHelpers");
-jest.mock("~/helpers/fetchRepositories", () => {
+jest.mock("~/utils/page.utils");
+jest.mock("~/fetch-helpers/fetchGraphQl", () => {
   return {
     fetchRepositories: jest.fn(),
   };

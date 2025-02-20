@@ -1,5 +1,5 @@
 "use client";
-import { getFullDate } from "~/lib/pageHelpers";
+import { getFullDate } from "~/utils/page.utils";
 import * as S from "./Issue.styled";
 import { useState } from "react";
 

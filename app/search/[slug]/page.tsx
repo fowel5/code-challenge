@@ -3,9 +3,9 @@ import {
   PageWrapper,
   SearchPageWrapper,
 } from "~/components/PageWrapper/PageWrapper.styled";
-import { fetchRepositories } from "~/helpers/fetchRepositories";
-import { createRepositorySearchQuery } from "~/lib/graphql.utils";
-import { redirectToMainPage } from "~/lib/pageHelpers";
+import { fetchRepositories } from "~/fetch-helpers/fetchGraphQl";
+import { createRepositorySearchQuery } from "~/utils/graphql.utils";
+import { redirectToMainPage } from "~/utils/page.utils";
 
 export default async function Page({
   params,
